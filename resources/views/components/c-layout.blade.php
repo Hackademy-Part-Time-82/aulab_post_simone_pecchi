@@ -24,7 +24,7 @@
 </div>
 
 
-
+<x-c-footer/>
 </body>
 
 </html>

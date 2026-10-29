@@ -96,3 +96,49 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
+/* ---------- FOOTER ---------- */
+
+.site-footer {
+    background: var(--post-dark);
+    color: #bbb;
+    border-top: 3px solid var(--post-red);
+    font-size: 0.9rem;
+}
+
+.footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-brand:hover {
+    color: #fff;
+}
+
+.footer-title {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.footer-link {
+    color: #bbb;
+    text-decoration: none;
+    line-height: 2;
+}
+
+.footer-link:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    border-top: 1px solid #2a2a2a;
+    font-size: 0.8rem;
+    color: #888;
+}
