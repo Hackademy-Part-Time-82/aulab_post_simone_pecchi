@@ -13,6 +13,9 @@
 </head>
 
 <body>
+    <header>
+        <x-c-navbar/>
+    </header>
 
 <div class="min-vh-100">
 
