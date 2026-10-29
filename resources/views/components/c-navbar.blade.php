@@ -1,6 +1,6 @@
 <header class="masthead">
 
-    {{-- BARRA SUPERIORE: data + link utente --}}
+    {{-- BARRA SUPERIORE--}}
     <div class="topbar">
         <div class="container d-flex justify-content-between align-items-center">
             <span class="topbar-date">
@@ -51,7 +51,7 @@
                         <a class="nav-link {{ request()->routeIs('homepage') ? 'active' : '' }}"
                            href="{{ route('homepage') }}">Home</a>
                     </li>
-                    {{-- Per ora categorie fisse: con la User Story 2 diventeranno dinamiche --}}
+                    {{-- categorie fisse --}}
                     <li class="nav-item"><a class="nav-link" href="#">Politica</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Economia</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Esteri</a></li>
