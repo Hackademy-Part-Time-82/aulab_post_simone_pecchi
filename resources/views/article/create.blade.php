@@ -1,4 +1,4 @@
-<x-layout>
+<x-c-layout>
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8">
@@ -76,4 +76,4 @@
             </div>
         </div>
     </div>
-</x-layout>
+</x-c-layout>
