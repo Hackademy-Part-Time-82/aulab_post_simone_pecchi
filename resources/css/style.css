@@ -167,3 +167,67 @@ body {
     font-weight: 600;
     text-decoration: none;
 }
+
+
+
+/* ---------- CARD ARTICOLI ---------- */
+
+.article-card {
+    border: none;
+    border-radius: 0;
+    border-top: 3px solid var(--post-dark);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.article-card-img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.article-card-category {
+    color: var(--post-red);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.article-card-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.article-card-title a {
+    color: var(--post-dark);
+    text-decoration: none;
+}
+
+.article-card-title a:hover {
+    color: var(--post-red);
+}
+
+.article-card-subtitle {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.article-card-meta {
+    font-size: 0.8rem;
+    color: #888;
+    border-top: 1px solid var(--post-border);
+    padding-top: 0.6rem;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    border-bottom: 2px solid var(--post-dark);
+    padding-bottom: 0.5rem;
+}

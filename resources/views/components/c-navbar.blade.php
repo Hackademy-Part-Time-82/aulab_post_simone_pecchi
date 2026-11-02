@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    {{-- TESTATA: nome del giornale --}}
+    {{-- TESTATA --}}
     <div class="container text-center py-3 py-md-4">
         <a href="{{ route('homepage') }}" class="brand">The Aulab Post</a>
         <p class="brand-tagline mb-0">Notizie verificate, ogni giorno</p>
@@ -52,6 +52,7 @@
                            href="{{ route('homepage') }}">Home</a>
                     </li>
                     {{-- categorie fisse --}}
+                    <li class="nav-item"><a class="nav-link" href="{{ route("article.index") }}">tutti gli articoli</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Politica</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Economia</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Esteri</a></li>
