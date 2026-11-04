@@ -1,29 +1,37 @@
 <x-c-layout>
     <article class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-10">
 
-            
+                {{-- Categoria --}}
+                <a href="{{ route('article.byCategory', $article->category) }}" class="article-show-category">
+                    {{ $article->category->name }}
+                </a>
 
-                {{-- titolo e sottotitolo --}}
+                {{-- Titolo e sottotitolo --}}
                 <h1 class="article-show-title mt-2">{{ $article->title }}</h1>
                 <p class="article-show-subtitle">{{ $article->subtitle }}</p>
 
+                {{-- Autore e data --}}
+                <div class="article-show-meta">
+                    Di
+                    <a href="{{ route('article.byUser', $article->user) }}"><strong>{{ $article->user->name }}</strong></a>
+                    · {{ $article->created_at->format('d/m/Y') }}
+                </div>
 
-            {{-- immagine di copertina --}}
-            <div class="col-12 col-lg-10 my-4">
-                <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}" class="img-fluid w-100 article-show-img">
-            </div>
+                {{-- Immagine di copertina --}}
+                <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}"
+                     class="img-fluid w-100 article-show-img my-4">
 
-            {{-- corpo del testo --}}
-            <div class="col-12 col-lg-8">
+                {{-- Corpo del testo --}}
                 <div class="article-show-body">
-                    {{$article->body}}
+                    {!! nl2br(e($article->body)) !!}
                 </div>
 
                 <div class="mt-5 pt-4 border-top">
                     <a href="{{ route('article.index') }}" class="btn btn-outline-dark">← Torna a tutti gli articoli</a>
                 </div>
+
             </div>
         </div>
     </article>

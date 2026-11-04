@@ -143,6 +143,26 @@ body {
     color: #888;
 }
 
+/* Logo piccolo nella barra nera (pagine interne) */
+.brand-inline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: #fff !important;
+    letter-spacing: -0.5px;
+}
+
+/* Titolo grande delle pagine interne (es. nome categoria) */
+.page-heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    border-bottom: 2px solid var(--post-dark);
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+}
+
 /* ---------- FORM REGISTRAZIONE ---------- */
 
 .auth-card {
@@ -231,3 +251,76 @@ body {
     border-bottom: 2px solid var(--post-dark);
     padding-bottom: 0.5rem;
 }
+
+.article-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.article-card .card-body {
+    padding-bottom: 1.5rem !important;
+}
+
+/* ---------- PAGINA DI DETTAGLIO ARTICOLI---------- */
+
+
+.article-show-category {
+    color: var(--post-red);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+}
+
+.article-show-category:hover {
+    color: var(--post-dark);
+}
+
+.article-show-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    overflow-wrap: break-word;
+}
+
+.article-show-subtitle {
+    font-size: 1.25rem;
+    color: #555;
+    margin-top: 0.8rem;
+}
+
+.article-show-meta {
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid var(--post-border);
+    border-bottom: 1px solid var(--post-border);
+    padding: 0.7rem 0;
+}
+
+.article-show-meta a {
+    color: var(--post-dark);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--post-red);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+}
+
+.article-show-meta a:hover {
+    color: var(--post-red);
+}
+
+.article-show-img {
+    max-height: 520px;
+    object-fit: cover;
+}
+
+.article-show-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+}
+
+
+

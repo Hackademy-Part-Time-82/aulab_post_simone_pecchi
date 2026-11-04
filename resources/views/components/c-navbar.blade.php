@@ -1,6 +1,6 @@
 <header class="masthead">
 
-    {{-- BARRA SUPERIORE--}}
+    {{-- BARRA SUPERIORE --}}
     <div class="topbar">
         <div class="container d-flex justify-content-between align-items-center">
             <span class="topbar-date">
@@ -29,19 +29,25 @@
     </div>
 
     {{-- TESTATA --}}
-    <div class="container text-center py-3 py-md-4">
-        <a href="{{ route('homepage') }}" class="brand">The Aulab Post</a>
-        <p class="brand-tagline mb-0">Notizie verificate, ogni giorno</p>
-    </div>
+
+    @if (request()->routeIs('homepage'))
+        <div class="container text-center py-3 py-md-4">
+            <a href="{{ route('homepage') }}" class="brand">The Aulab Post</a>
+            <p class="brand-tagline mb-0">Notizie verificate, ogni giorno</p>
+        </div>
+    @endif
 
     {{-- BARRA CATEGORIE --}}
     <nav class="navbar navbar-expand-lg category-bar" data-bs-theme="dark">
         <div class="container">
-            <span class="navbar-brand d-lg-none brand-small">Sezioni</span>
+            @if (request()->routeIs('homepage'))
+                <span class="navbar-brand d-lg-none brand-small">Sezioni</span>
+            @else
+                <a href="{{ route('homepage') }}" class="navbar-brand brand-inline">The Aulab Post</a>
+            @endif
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#categoryNav" aria-controls="categoryNav"
-                    aria-expanded="false" aria-label="Apri menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#categoryNav"
+                aria-controls="categoryNav" aria-expanded="false" aria-label="Apri menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -49,10 +55,11 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('homepage') ? 'active' : '' }}"
-                           href="{{ route('homepage') }}">Home</a>
+                            href="{{ route('homepage') }}">Home</a>
                     </li>
                     {{-- categorie fisse --}}
-                    <li class="nav-item"><a class="nav-link" href="{{ route("article.index") }}">tutti gli articoli</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('article.index') }}">tutti gli articoli</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#">Politica</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Economia</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Esteri</a></li>
