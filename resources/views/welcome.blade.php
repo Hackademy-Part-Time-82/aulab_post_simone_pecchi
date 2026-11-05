@@ -1,15 +1,21 @@
 <x-c-layout>
 
-    @if (session("message"))
-    
-        <div class="alert alert-success">
-            {{ session("message") }}
-        </div>
-        
-    @endif
+     <div class="container mt-4">
+        @if (session('message'))
+            <div class="alert alert-success text-center">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        @if (session('alert'))
+            <div class="alert alert-danger text-center">
+                {{ session('alert') }}
+            </div>
+        @endif
+    </div>
 
     <div class="container my-5">
-    <h2 class="section-title mb-4">Ultime notizie</h2>
+        <h2 class="section-title mb-4">Ultime notizie</h2>
 
     <div class="row g-4">
         @forelse ($articles as $article)

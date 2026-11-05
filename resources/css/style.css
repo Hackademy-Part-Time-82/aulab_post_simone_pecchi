@@ -322,5 +322,18 @@ body {
     overflow-wrap: break-word;
 }
 
+/* ---------- DASHBOARD ---------- */
+
+.requests-table {
+    background: #fff;
+    border: 1px solid var(--post-border);
+}
+
+.requests-table thead th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 
 

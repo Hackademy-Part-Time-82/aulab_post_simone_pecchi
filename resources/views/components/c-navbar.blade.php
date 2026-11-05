@@ -8,7 +8,14 @@
             </span>
 
             <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('careers') }}" class="topbar-link">Lavora con noi</a>
                 @auth
+                    @if (Auth::user()->is_admin)
+                        <a href="{{ route('admin.dashboard') }}" class="topbar-link">Dashboard Admin</a>
+                    @endif
+                    @if (Auth::user()->is_revisor)
+                        <a href="{{ route('revisor.dashboard') }}" class="topbar-link">Dashboard Revisore</a>
+                    @endif
                     <span class="d-none d-sm-inline">Ciao, {{ Auth::user()->name }}</span>
                     @if (Route::has('logout'))
                         <form action="{{ route('logout') }}" method="POST" class="m-0">

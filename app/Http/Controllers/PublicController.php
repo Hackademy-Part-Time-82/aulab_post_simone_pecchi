@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CareerRequestMail;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use App\Mail\CareerRequestMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,7 +21,7 @@ class PublicController extends Controller implements HasMiddleware
 
     public function homepage()
     {
-        $articles = Article::orderBy('created_at', 'desc')->take(4)->get();
+        $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->take(4)->get();
         return view('welcome', compact('articles'));
     }
 
@@ -38,6 +38,7 @@ class PublicController extends Controller implements HasMiddleware
             'message' => 'required',
         ]);
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $role = $request->role;
         $email = $request->email;
@@ -57,8 +58,7 @@ class PublicController extends Controller implements HasMiddleware
                 $user->is_writer = NULL;
                 break;
         }
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+
         $user->update();
 
         return redirect(route('homepage'))->with('message', 'Mail inviata con successo!');

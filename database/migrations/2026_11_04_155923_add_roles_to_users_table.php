@@ -13,9 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean("is_admin")->after("email")->nullable()->default("false");
-            $table->boolean("is_revisor")->after("is_admin")->nullable()->default("false");
-            $table->boolean("is_writer")->after("is_revisor")->nullable()->default("false");
+            $table->boolean("is_admin")->after("email")->nullable()->default(false);
+            $table->boolean("is_revisor")->after("is_admin")->nullable()->default(false);
+            $table->boolean("is_writer")->after("is_revisor")->nullable()->default(false);
         });
 
         User::create([
@@ -23,7 +23,7 @@ return new class extends Migration
             "name"=>"Admin",
             "email"=>"admin@theaulabpost.it",
             "password"=>bcrypt("123456789"),
-            "is_admin"=>"true",
+            'is_admin' => true,
 
         ]);
     }
