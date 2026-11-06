@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 
 // Articoli
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('article.create');
-Route::post('/articles/store', [ArticleController::class, 'store'])->name('article.store');
+
 Route::get('/articles/index', [ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/show/{article}', [ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/category/{category}', [ArticleController::class, 'byCategory'])->name('article.byCategory');
@@ -38,4 +37,11 @@ Route::middleware('revisor')->group(function () {
     Route::post('/revisor/{article}/reject', [RevisorController::class, 'rejectArticle'])->name('revisor.rejectArticle');
     Route::post('/revisor/{article}/undo', [RevisorController::class, 'undoArticle'])->name('revisor.undoArticle');
 });
+
+//Writer
+Route::middleware('writer')->group(function () {
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('/articles/store', [ArticleController::class, 'store'])->name('article.store');   
+});
+
 
