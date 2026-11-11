@@ -12,7 +12,9 @@
         "php": "^8.3",
         "laravel/fortify": "^1.41",
         "laravel/framework": "^13.17",
-        "laravel/tinker": "^3.0"
+        "laravel/scout": "^11.9",
+        "laravel/tinker": "^3.0",
+        "teamtnt/laravel-scout-tntsearch-driver": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -58,8 +60,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan boost:update --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

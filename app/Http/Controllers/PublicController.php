@@ -27,7 +27,7 @@ class PublicController extends Controller implements HasMiddleware
 
     public function careers()
     {
-        return view('careers');
+        return view('carreers');
     }
 
     public function careersSubmit(Request $request)

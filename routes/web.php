@@ -16,6 +16,7 @@ Route::get('/articles/index', [ArticleController::class, 'index'])->name('articl
 Route::get('/articles/show/{article}', [ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/category/{category}', [ArticleController::class, 'byCategory'])->name('article.byCategory');
 Route::get('/articles/user/{user}', [ArticleController::class, 'byUser'])->name('article.byUser');
+Route::get('/articles/search', [ArticleController::class, 'articleSearch'])->name('article.search');
 
 // Lavora con noi
 Route::get('/careers', [PublicController::class, 'careers'])->name('careers');

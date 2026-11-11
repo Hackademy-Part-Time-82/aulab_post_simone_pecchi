@@ -74,9 +74,14 @@
                     <li class="nav-item"><a class="nav-link" href="#">Sport</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Cultura</a></li>
                 </ul>
+                <form action="{{ route('article.search') }}" method="GET" class="d-flex my-2 my-lg-0 ms-lg-3"
+                    role="search">
+                    <input type="search" name="query" class="form-control form-control-sm"
+                        placeholder="Cerca un articolo..." aria-label="Cerca">
+                </form>
 
                 @auth
-                    @if (Route::has('article.create'))
+                    @if (Auth::user()->is_writer)
                         <a href="{{ route('article.create') }}" class="btn btn-sm btn-subscribe ms-lg-3 my-2 my-lg-0">
                             + Inserisci articolo
                         </a>
