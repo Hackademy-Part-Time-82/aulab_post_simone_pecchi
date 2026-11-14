@@ -25,11 +25,16 @@ Route::post('/careers/submit', [PublicController::class, 'careersSubmit'])->name
 
 // Admin
 Route::middleware('admin')->group(function () {
-    
+
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::patch('/admin/{user}/set-admin', [AdminController::class, 'setAdmin'])->name('admin.setAdmin');
     Route::patch('/admin/{user}/set-revisor', [AdminController::class, 'setRevisor'])->name('admin.setRevisor');
     Route::patch('/admin/{user}/set-writer', [AdminController::class, 'setWriter'])->name('admin.setWriter');
+    Route::put('/admin/edit/{tag}/tag', [AdminController::class, 'editTag'])->name('admin.editTag');
+    Route::delete('/admin/delete/{tag}/tag', [AdminController::class, 'deleteTag'])->name('admin.deleteTag');
+    Route::put('/admin/edit/{category}/category', [AdminController::class, 'editCategory'])->name('admin.editCategory');
+    Route::delete('/admin/delete/{category}/category', [AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    Route::post('/admin/category/store', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
 });
 //Revisore
 Route::middleware('revisor')->group(function () {
@@ -42,7 +47,5 @@ Route::middleware('revisor')->group(function () {
 //Writer
 Route::middleware('writer')->group(function () {
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('article.create');
-    Route::post('/articles/store', [ArticleController::class, 'store'])->name('article.store');   
+    Route::post('/articles/store', [ArticleController::class, 'store'])->name('article.store');
 });
-
-

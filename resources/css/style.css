@@ -335,5 +335,16 @@ body {
     letter-spacing: 1px;
 }
 
+/* ---------- TAG ---------- */
+
+.tag-chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #555;
+    background: #f2f2f2;
+    border-radius: 2px;
+    padding: 0.15rem 0.5rem;
+    margin: 0 0.25rem 0.25rem 0;
+}
 
 

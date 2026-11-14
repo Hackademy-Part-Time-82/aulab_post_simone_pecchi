@@ -16,6 +16,9 @@
                     @if (Auth::user()->is_revisor)
                         <a href="{{ route('revisor.dashboard') }}" class="topbar-link">Dashboard Revisore</a>
                     @endif
+                    @if (Auth::user()->is_writer && Route::has('writer.dashboard'))
+                        <a href="{{ route('writer.dashboard') }}" class="topbar-link">I miei articoli</a>
+                    @endif
                     <span class="d-none d-sm-inline">Ciao, {{ Auth::user()->name }}</span>
                     @if (Route::has('logout'))
                         <form action="{{ route('logout') }}" method="POST" class="m-0">
@@ -36,7 +39,6 @@
     </div>
 
     {{-- TESTATA --}}
-
     @if (request()->routeIs('homepage'))
         <div class="container text-center py-3 py-md-4">
             <a href="{{ route('homepage') }}" class="brand">The Aulab Post</a>
@@ -64,16 +66,19 @@
                         <a class="nav-link {{ request()->routeIs('homepage') ? 'active' : '' }}"
                             href="{{ route('homepage') }}">Home</a>
                     </li>
-                    {{-- categorie fisse --}}
-                    <li class="nav-item"><a class="nav-link" href="{{ route('article.index') }}">tutti gli articoli</a>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}"
+                            href="{{ route('article.index') }}">Tutti gli articoli</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Politica</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Economia</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Esteri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tecnologia</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Sport</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Cultura</a></li>
+
+                    {{-- Categorie dinamiche dal database --}}
+                    @foreach ($categories as $category)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('article.byCategory', $category) }}">{{ $category->name }}</a>
+                        </li>
+                    @endforeach
                 </ul>
+
                 <form action="{{ route('article.search') }}" method="GET" class="d-flex my-2 my-lg-0 ms-lg-3"
                     role="search">
                     <input type="search" name="query" class="form-control form-control-sm"

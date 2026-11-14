@@ -10,44 +10,44 @@
                     <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        
+
                         <div class="mb-3">
                             <label for="title" class="form-label">Titolo</label>
                             <input type="text" name="title" id="title"
-                                   class="form-control @error('title') is-invalid @enderror"
-                                   value="{{ old('title') }}">
+                                class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                       
+
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Sottotitolo</label>
                             <input type="text" name="subtitle" id="subtitle"
-                                   class="form-control @error('subtitle') is-invalid @enderror"
-                                   value="{{ old('subtitle') }}">
+                                class="form-control @error('subtitle') is-invalid @enderror"
+                                value="{{ old('subtitle') }}">
                             @error('subtitle')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                       
+
                         <div class="mb-3">
                             <label for="image" class="form-label">Immagine di copertina</label>
                             <input type="file" name="image" id="image"
-                                   class="form-control @error('image') is-invalid @enderror">
+                                class="form-control @error('image') is-invalid @enderror">
                             @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                     
+
                         <div class="mb-3">
                             <label for="category" class="form-label">Categoria</label>
                             <select name="category" id="category"
-                                    class="form-select @error('category') is-invalid @enderror">
-                                <option value="" disabled @selected(!old('category'))>Seleziona una categoria</option>
+                                class="form-select @error('category') is-invalid @enderror">
+                                <option value="" disabled @selected(!old('category'))>Seleziona una categoria
+                                </option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" @selected(old('category') == $category->id)>
                                         {{ $category->name }}
@@ -58,12 +58,21 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="tags" class="form-label">Tag</label>
+                            <input type="text" name="tags" id="tags"
+                                class="form-control @error('tags') is-invalid @enderror" value="{{ old('tags') }}"
+                                placeholder="es. scuola, sicurezza, evacuazione">
+                            <div class="form-text">Separa i tag con una virgola</div>
+                            @error('tags')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                        
+
                         <div class="mb-4">
                             <label for="body" class="form-label">Corpo del testo</label>
-                            <textarea name="body" id="body" rows="10"
-                                      class="form-control @error('body') is-invalid @enderror">{{ old('body') }}</textarea>
+                            <textarea name="body" id="body" rows="10" class="form-control @error('body') is-invalid @enderror">{{ old('body') }}</textarea>
                             @error('body')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

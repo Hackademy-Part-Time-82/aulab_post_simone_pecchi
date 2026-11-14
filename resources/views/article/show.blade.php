@@ -4,9 +4,13 @@
             <div class="col-12 col-lg-10">
 
                 {{-- Categoria --}}
-                <a href="{{ route('article.byCategory', $article->category) }}" class="article-show-category">
-                    {{ $article->category->name }}
-                </a>
+                @if ($article->category)
+                    <a href="{{ route('article.byCategory', $article->category) }}" class="article-show-category">
+                        {{ $article->category->name }}
+                    </a>
+                @else
+                    <span class="article-show-category text-muted">Senza categoria</span>
+                @endif
 
                 {{-- Titolo e sottotitolo --}}
                 <h1 class="article-show-title mt-2">{{ $article->title }}</h1>
@@ -38,6 +42,13 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Rifiuta articolo</button>
                         </form>
+                    </div>
+                @endif
+                @if ($article->tags->isNotEmpty())
+                    <div class="mt-4">
+                        @foreach ($article->tags as $tag)
+                            <span class="tag-chip">#{{ $tag->name }}</span>
+                        @endforeach
                     </div>
                 @endif
 

@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use App\Models\User;
+use App\Models\Tag;
 
 class ArticleController extends Controller implements HasMiddleware
 {
-   public static function middleware(): array
-{
-    return [
-        new Middleware('auth', except: ['index', 'show', 'byCategory', 'byUser', 'articleSearch']),
-    ];
-}
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index', 'show', 'byCategory', 'byUser', 'articleSearch']),
+        ];
+    }
 
     /**
      * Display a listing of the resource.
@@ -26,7 +27,6 @@ class ArticleController extends Controller implements HasMiddleware
     {
         $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view("article.index", compact("articles"));
-     
     }
 
     /**
@@ -49,6 +49,7 @@ class ArticleController extends Controller implements HasMiddleware
             'body' => 'required|min:10',
             'image' => 'required|image',
             'category' => 'required',
+            'tags' => 'required',
         ]);
 
         $article = Article::create([
@@ -59,6 +60,19 @@ class ArticleController extends Controller implements HasMiddleware
             'category_id' => $request->category,
             'user_id' => Auth::user()->id,
         ]);
+
+        $tags = explode(',', $request->tags);
+
+        foreach ($tags as $tag) {
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $newTag = Tag::updateOrCreate(['name' => strtolower($tag)]);
+            $article->tags()->attach($newTag);
+        }
 
         return redirect(route('homepage'))->with('message', 'Il tuo articolo è stato creato con successo');
     }
@@ -95,23 +109,22 @@ class ArticleController extends Controller implements HasMiddleware
         //
     }
 
-    public function byCategory(Category $category){
+    public function byCategory(Category $category)
+    {
         $articles = $category->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view("article.by-category", compact("category", "articles"));
-      
     }
 
     public function byUser(User $user)
-{
-    $articles = $user->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
-    return view('article.by-user', compact('user', 'articles'));
-   
-}
-public function articleSearch(Request $request)
-{
-    $query = $request->input('query');
-    $articles = Article::search($query)->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
+    {
+        $articles = $user->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
+        return view('article.by-user', compact('user', 'articles'));
+    }
+    public function articleSearch(Request $request)
+    {
+        $query = $request->input('query');
+        $articles = Article::search($query)->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
 
-    return view('article.search-index', compact('articles', 'query'));
-}
+        return view('article.search-index', compact('articles', 'query'));
+    }
 }
