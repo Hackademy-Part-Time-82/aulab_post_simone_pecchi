@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use App\Models\User;
-use App\Models\Tag;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller implements HasMiddleware
 {
@@ -20,27 +21,18 @@ class ArticleController extends Controller implements HasMiddleware
         ];
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->get();
-        return view("article.index", compact("articles"));
+        return view('article.index', compact('articles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
         return view('article.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -77,42 +69,86 @@ class ArticleController extends Controller implements HasMiddleware
         return redirect(route('homepage'))->with('message', 'Il tuo articolo è stato creato con successo');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Article $article)
     {
-        return view("article.show", compact("article"));
+        return view('article.show', compact('article'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Article $article)
     {
-        //
+        if (Auth::id() == $article->user_id) {
+            return view('article.edit', compact('article'));
+        }
+
+        return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Article $article)
     {
-        //
+        if (Auth::id() != $article->user_id) {
+            return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
+        }
+
+        $request->validate([
+            'title' => 'required|min:5|unique:articles,title,' . $article->id,
+            'subtitle' => 'required|min:5',
+            'body' => 'required|min:10',
+            'image' => 'nullable|image',
+            'category' => 'required',
+            'tags' => 'required',
+        ]);
+
+        $article->update([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'body' => $request->body,
+            'category_id' => $request->category,
+            'is_accepted' => NULL,
+        ]);
+
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($article->image);
+            $article->update([
+                'image' => $request->file('image')->store('images', 'public'),
+            ]);
+        }
+
+        $tags = explode(',', $request->tags);
+        $newTags = [];
+
+        foreach ($tags as $tag) {
+            $tag = trim($tag);
+
+            if ($tag === '') {
+                continue;
+            }
+
+            $newTag = Tag::updateOrCreate(['name' => strtolower($tag)]);
+            $newTags[] = $newTag->id;
+        }
+
+        $article->tags()->sync($newTags);
+
+        return redirect(route('writer.dashboard'))->with('message', 'Articolo modificato: è tornato in revisione');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Article $article)
     {
-        //
+        if (Auth::id() != $article->user_id) {
+            return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
+        }
+
+        $article->tags()->detach();
+        Storage::disk('public')->delete($article->image);
+        $article->delete();
+
+        return redirect(route('writer.dashboard'))->with('message', 'Articolo eliminato correttamente');
     }
 
     public function byCategory(Category $category)
     {
         $articles = $category->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
-        return view("article.by-category", compact("category", "articles"));
+        return view('article.by-category', compact('category', 'articles'));
     }
 
     public function byUser(User $user)
@@ -120,6 +156,7 @@ class ArticleController extends Controller implements HasMiddleware
         $articles = $user->articles()->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
         return view('article.by-user', compact('user', 'articles'));
     }
+
     public function articleSearch(Request $request)
     {
         $query = $request->input('query');

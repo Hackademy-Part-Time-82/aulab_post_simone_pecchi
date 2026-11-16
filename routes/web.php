@@ -6,6 +6,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RevisorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WriterController;
 
 
 Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
@@ -48,4 +49,8 @@ Route::middleware('revisor')->group(function () {
 Route::middleware('writer')->group(function () {
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('article.create');
     Route::post('/articles/store', [ArticleController::class, 'store'])->name('article.store');
+    Route::get('/writer/dashboard', [WriterController::class, 'dashboard'])->name('writer.dashboard');
+    Route::get('/articles/edit/{article}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::put('/articles/update/{article}', [ArticleController::class, 'update'])->name('article.update');
+    Route::delete('/articles/destroy/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
 });
