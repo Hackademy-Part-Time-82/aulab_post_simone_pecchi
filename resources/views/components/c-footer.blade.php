@@ -25,7 +25,7 @@
             <div class="col-6 col-md-4">
                 <h6 class="footer-title">Redazione</h6>
                 <ul class="list-unstyled mb-0">
-                    {{-- Con la User Story 3 questo link porterà al form "Lavora con noi" --}}
+                    
                     <li><a href="#" class="footer-link">Lavora con noi</a></li>
                     <li><a href="mailto:redazione@theaulabpost.it" class="footer-link">redazione@theaulabpost.it</a></li>
                 </ul>

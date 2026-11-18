@@ -20,8 +20,9 @@
                 <div class="article-show-meta">
                     Di
                     <a
-                        href="{{ route('article.byUser', $article->user) }}"><strong>{{ $article->user->name }}</strong></a>
+                    href="{{ route('article.byUser', $article->user) }}"><strong>{{ $article->user->name }}</strong></a>
                     · {{ $article->created_at->format('d/m/Y') }}
+                    · {{ $article->readDuration() }} min di lettura
                 </div>
 
                 {{-- Immagine di copertina --}}

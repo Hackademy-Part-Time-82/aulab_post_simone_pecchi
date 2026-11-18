@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -14,6 +15,7 @@ class Article extends Model
     protected $fillable =
     [
         'title',
+        'slug',
         'subtitle',
         'body',
         'image',
@@ -47,5 +49,18 @@ class Article extends Model
             'body' => $this->body,
             'category' => $this->category?->name,
         ];
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function readDuration()
+    {
+        $totalWords = Str::wordCount($this->body);
+        $minutesToRead = ceil($totalWords / 200);
+
+        return max(1, intval($minutesToRead));
     }
 }

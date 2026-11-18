@@ -71,7 +71,7 @@
                             href="{{ route('article.index') }}">Tutti gli articoli</a>
                     </li>
 
-                    {{-- Categorie dinamiche dal database --}}
+                    
                     {{-- Prime 5 categorie in barra --}}
                     @foreach ($categories->take(5) as $category)
                         <li class="nav-item">

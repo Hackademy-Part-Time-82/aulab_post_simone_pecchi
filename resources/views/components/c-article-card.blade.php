@@ -36,7 +36,7 @@
                 Di <a href="{{ route('article.byUser', $article->user) }}"
                     class="text-dark fw-bold text-decoration-none">{{ $article->user->name }}</a> ·
             @endif
-            {{ $article->created_at->format('d/m/Y') }}
+            {{ $article->created_at->format('d/m/Y') }} · {{ $article->readDuration() }} min di lettura
         </div>
 
         <a href="{{ route('article.show', $article) }}" class="btn btn-outline-dark btn-sm mt-3">Leggi l'articolo</a>
