@@ -72,11 +72,31 @@
                     </li>
 
                     {{-- Categorie dinamiche dal database --}}
-                    @foreach ($categories as $category)
+                    {{-- Prime 5 categorie in barra --}}
+                    @foreach ($categories->take(5) as $category)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('article.byCategory', $category) }}">{{ $category->name }}</a>
+                            <a class="nav-link"
+                                href="{{ route('article.byCategory', $category) }}">{{ $category->name }}</a>
                         </li>
                     @endforeach
+
+                    {{-- Le altre nel menu "Altro" --}}
+                    @if ($categories->count() > 5)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Altro
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                @foreach ($categories->skip(5) as $category)
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('article.byCategory', $category) }}">{{ $category->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
 
                 <form action="{{ route('article.search') }}" method="GET" class="d-flex my-2 my-lg-0 ms-lg-3"

@@ -347,4 +347,33 @@ body {
     margin: 0 0.25rem 0.25rem 0;
 }
 
+/* ---------- NAVBAR: fix con molte categorie ---------- */
+
+/* Le voci non vanno a capo e occupano meno spazio */
+.category-bar .nav-link {
+    white-space: nowrap;
+    padding: 0.85rem 0.75rem !important;
+}
+
+/* La barra di ricerca mantiene sempre la sua larghezza */
+.category-bar form[role="search"] {
+    flex-shrink: 0;
+}
+
+.category-bar form[role="search"] input {
+    width: 180px;
+}
+
+/* Menu "Altro" nello stile della barra */
+.category-bar .dropdown-menu {
+    border-radius: 0;
+    border-top: 3px solid var(--post-red);
+}
+
+.category-bar .dropdown-item {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
 

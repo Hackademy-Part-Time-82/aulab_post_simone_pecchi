@@ -24,16 +24,20 @@
                 </td>
                 <td>{{ $article->created_at->format('d/m/Y') }}</td>
                 <td class="text-end">
-                    <div class="d-inline-flex gap-2">
+                    <div class="d-inline-flex gap-2 align-items-center">
                         <a href="{{ route('article.show', $article) }}" class="btn btn-sm btn-outline-dark">Leggi</a>
 
-                        <a href="{{ route('article.edit', $article) }}"
-                            class="btn btn-sm btn-outline-secondary">Modifica</a>
-                        <form action="{{ route('article.destroy', $article) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Elimina</button>
-                        </form>
+                        @if (is_null($article->is_accepted))
+                            <span class="badge text-bg-warning">In revisione</span>
+                        @else
+                            <a href="{{ route('article.edit', $article) }}"
+                                class="btn btn-sm btn-outline-secondary">Modifica</a>
+                            <form action="{{ route('article.destroy', $article) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Elimina</button>
+                            </form>
+                        @endif
                     </div>
                 </td>
             </tr>

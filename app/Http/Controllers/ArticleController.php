@@ -76,17 +76,25 @@ class ArticleController extends Controller implements HasMiddleware
 
     public function edit(Article $article)
     {
-        if (Auth::id() == $article->user_id) {
-            return view('article.edit', compact('article'));
+        if (Auth::id() != $article->user_id) {
+            return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
         }
 
-        return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
+        if (is_null($article->is_accepted)) {
+            return redirect(route('writer.dashboard'))->with('message', 'L\'articolo è in revisione: non puoi modificarlo o eliminarlo finché il revisore non lo ha valutato');
+        }
+
+        return view('article.edit', compact('article'));
     }
 
     public function update(Request $request, Article $article)
     {
         if (Auth::id() != $article->user_id) {
             return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
+        }
+
+        if (is_null($article->is_accepted)) {
+            return redirect(route('writer.dashboard'))->with('message', 'L\'articolo è in revisione: non puoi modificarlo o eliminarlo finché il revisore non lo ha valutato');
         }
 
         $request->validate([
@@ -136,6 +144,10 @@ class ArticleController extends Controller implements HasMiddleware
     {
         if (Auth::id() != $article->user_id) {
             return redirect(route('homepage'))->with('alert', 'Non sei autorizzato');
+        }
+
+        if (is_null($article->is_accepted)) {
+            return redirect(route('writer.dashboard'))->with('message', 'L\'articolo è in revisione: non puoi modificarlo o eliminarlo finché il revisore non lo ha valutato');
         }
 
         $article->tags()->detach();
