@@ -2,7 +2,7 @@
     <div class="container my-5">
 
         <span class="article-show-category text-uppercase">Categoria</span>
-        <h1 class="page-heading">{{ $category->name }}</h1>
+        <h1 class="page-heading">{{ Str::ucfirst($category->name) }}</h1>
 
         <div class="row g-4">
             @forelse ($articles as $article)
